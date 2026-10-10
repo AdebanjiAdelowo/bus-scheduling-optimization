@@ -10,3 +10,4 @@ results/runs/
 .env
 .DS_Store
 .streamlit/secrets.toml
+results/*.log
