@@ -12,6 +12,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+import matplotlib.ticker  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
@@ -242,7 +243,7 @@ def policy_figures(res, out):
     ax.set_yticks(y, [POLICY_LABEL.get(p, p) for p in s.policy])
     ax.grid(axis="y", visible=False)
     ax.set(
-        title=f"Simulated mean wait relative to the existing schedule ({int(s.n_days.max())} held-out days)",
+        title=f"Simulated mean wait vs existing schedule, {int(s.n_days.max())} held-out days",
         xlabel="Change in mean passenger wait, % (bars: bootstrap 95% interval over days)",
     )
     _save(fig, out, "policy_comparison")
@@ -343,7 +344,7 @@ def stress_figure(res, out):
     rel = 100 * (piv / piv.loc["existing_gtfs"] - 1)
     lim = float(np.nanmax(np.abs(rel.to_numpy())))
     fig, ax = plt.subplots(figsize=(10, 3.9))
-    im = ax.imshow(-rel.to_numpy(), aspect="auto", cmap=DIV, vmin=-lim, vmax=lim)
+    ax.imshow(-rel.to_numpy(), aspect="auto", cmap=DIV, vmin=-lim, vmax=lim)
     for i in range(rel.shape[0]):
         for j in range(rel.shape[1]):
             ax.text(j, i, f"{rel.iat[i, j]:+.1f}", ha="center", va="center", fontsize=7.5, color=INK)
