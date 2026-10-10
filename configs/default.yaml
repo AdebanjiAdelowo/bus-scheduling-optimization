@@ -1,0 +1,55 @@
+# All experiment parameters live here. Every run copies this file into its run manifest.
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  gtfs_url: https://rrgtfsfeeds.s3.amazonaws.com/gtfs_m.zip   # MTA NYCT Manhattan bus GTFS
+  fare_dataset: gxb3-akrn      # MTA Bus Hourly Ridership: Beginning 2025 (fare payments)
+  apc_dataset: fvdm-uavx       # MTA Bus Stop Level Ridership: Beginning 2024 (APC sample)
+  socrata_base: https://data.ny.gov/resource
+  route_prefix: M              # Manhattan routes
+  start: "2025-01-01"
+  end: "2026-08-31"
+  weather:
+    latitude: 40.78
+    longitude: -73.97
+    timezone: America/New_York
+
+network:
+  service_hours: [5, 24]       # planning periods are the hours 05:00..23:00
+  layover_frac: 0.10           # recovery time as a fraction of round-trip running time
+  layover_min: 6.0             # minimum recovery minutes per round trip
+  transfer_radius_m: 150.0
+  min_daily_boardings: 2000    # routes below this are dropped from the planning instance
+
+forecast:
+  train_end: "2026-02-28"
+  valid_end: "2026-05-31"      # test = 2026-06-01 .. data.end
+  horizons_days: [1, 7, 14]
+  seed: 17
+
+optimization:
+  # Passengers per bus (ASSUMED, not taken from MTA data). "guideline" is the planning loading
+  # standard used in the capacity constraint; "crush" is the physical limit used by the simulator.
+  capacity_guideline: {standard: 54, articulated: 85}
+  capacity_crush: {standard: 85, articulated: 115}
+  articulated_suffix: "+"      # ASSUMPTION: Select Bus Service routes run articulated buses
+  max_headway_min: 30.0
+  freq_max: 30                 # buses per hour upper bound per route
+  wait_weight: 1.0             # passenger-minutes
+  unmet_penalty_min: 30.0      # minutes charged per passenger over capacity
+  headway_cv: 0.0              # planning-model headway irregularity
+  solver: highs
+  time_limit_s: 60
+  mip_gap: 1.0e-4
+  cost_per_vehicle_hour: 215.0 # USD, assumed (order of NTD-reported NYCT bus cost per revenue hour)
+
+simulation:
+  seed: 2026
+  travel_time_cv: 0.10
+  dwell_per_pax_s: 2.5
+  n_test_days: 28
+
+uncertainty:
+  n_scenarios: 30
+  robust_quantile: 0.9
+  cvar_alpha: 0.9
