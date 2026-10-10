@@ -1,0 +1,37 @@
+h=1 seasonal_naive           service-hours MAE=45.47
+h=1 historical_average       service-hours MAE=43.67
+h=1 rolling_average_4w       service-hours MAE=37.29
+h=1 ridge                    service-hours MAE=36.70
+h=1 ridge_weather_oracle     service-hours MAE=36.44
+h=1 gbt                      service-hours MAE=34.28
+h=1 gbt_weather_oracle       service-hours MAE=34.15
+h=1 gru                      service-hours MAE=33.55
+h=7 seasonal_naive           service-hours MAE=45.47
+h=7 historical_average       service-hours MAE=43.67
+h=7 rolling_average_4w       service-hours MAE=37.29
+h=7 ridge                    service-hours MAE=39.45
+h=7 ridge_weather_oracle     service-hours MAE=39.17
+h=7 gbt                      service-hours MAE=35.48
+h=7 gbt_weather_oracle       service-hours MAE=35.42
+h=7 gru                      service-hours MAE=35.74
+h=14 seasonal_naive           service-hours MAE=45.78
+h=14 historical_average       service-hours MAE=43.67
+h=14 rolling_average_4w       service-hours MAE=38.24
+h=14 ridge                    service-hours MAE=40.03
+h=14 ridge_weather_oracle     service-hours MAE=39.92
+h=14 gbt                      service-hours MAE=36.64
+h=14 gbt_weather_oracle       service-hours MAE=36.59
+h=14 gru                      service-hours MAE=36.47
+                         mae                  ...   wape              
+horizon_days              1       7       14  ...     1      7      14
+model                                         ...                     
+gbt                   34.279  35.477  36.635  ...  0.124  0.128  0.132
+gbt_weather_oracle    34.152  35.418  36.591  ...  0.123  0.128  0.132
+gru                   33.547  35.743  36.472  ...  0.121  0.129  0.132
+historical_average    43.671  43.671  43.671  ...  0.158  0.158  0.158
+ridge                 36.701  39.454  40.026  ...  0.133  0.142  0.145
+ridge_weather_oracle  36.441  39.171  39.925  ...  0.132  0.141  0.144
+rolling_average_4w    37.295  37.295  38.236  ...  0.135  0.135  0.138
+seasonal_naive        45.475  45.475  45.778  ...  0.164  0.164  0.165
+
+[8 rows x 9 columns]
